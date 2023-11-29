@@ -1,5 +1,5 @@
 /**
-My Draw Functions
+JS Draw Vectors
 
 Contains a set of functiions useful for drawing to the canvas object.
  
