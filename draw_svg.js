@@ -79,7 +79,7 @@ class DrawSVG {
         this.#text({context: context, c:c, x:x.toFixed(0), y:y.toFixed(0), text:v.label});
     }
 
-    static #axis({context, translatePos}) {
+    static axis({context, translatePos}) {
         // Remember that translatePos will give the centre of the graph, therefore it is o'
         this.#line({context: context, c:"axis", x1: -translatePos.x, y1: translatePos.y, x2: translatePos.x*2, y2: translatePos.y, stroke: "gray", text:"x-axis"});
         this.#line({context: context, c:"axis", x1: translatePos.x, y1: -translatePos.y, x2: translatePos.x , y2: translatePos.y*2, stroke: "gray", text:"x-axis"});
@@ -88,21 +88,11 @@ class DrawSVG {
 
     // Shorthand call to both functions
     static vector({context, key, value, translatePos}) {
-        this.#axis({context:context, translatePos: translatePos});
         this.line({context:context, c:key, v:value, translatePos: translatePos});
         // Don't want to print these values as they are in the same place as another label.
         if (key!="L1" && key!="L2" && key!="L3") {
             this.text({context:context, c:key, v:value, translatePos: translatePos});
-        }
-    }
+        } // if
+    } //static vector
 }
 
-function plot_svg({context, scale, translatePos}) {
-
-    // remove all child nodes
-    removeChilds(context);
-
-    for (let [key, value] of Object.entries(vectors)) {
-        DrawSVG.vector({context:context, key:key, value:value, translatePos: translatePos});
-    }
-}
